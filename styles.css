@@ -31,7 +31,9 @@ body {
     font-size: 1.0625rem;
     line-height: 1.65;
     color: var(--color-ink);
-    background: var(--color-paper);
+    /* One uninterrupted wash of the hero palette behind every section. */
+    background: linear-gradient(105deg, var(--color-paper) 0%, var(--color-paper) 52%, #c5d4d4 100%);
+    background-attachment: fixed;
 }
 
 h1,
@@ -94,9 +96,7 @@ cite {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(244, 239, 230, 0.94);
-    border-bottom: 1px solid var(--color-line);
-    backdrop-filter: blur(8px);
+    padding: 0.65rem 1.5rem;
 }
 
 .nav {
@@ -108,12 +108,17 @@ cite {
     max-width: 72rem;
     margin: 0 auto;
     padding: 0 1.5rem;
+    background: rgba(20, 31, 33, 0.42);
+    border: 1px solid rgba(232, 224, 212, 0.28);
+    border-radius: 0.9rem;
+    backdrop-filter: blur(16px) saturate(130%);
+    -webkit-backdrop-filter: blur(16px) saturate(130%);
 }
 
 .nav__brand {
     font-family: var(--font-serif);
     font-size: 1.05rem;
-    color: var(--color-ink);
+    color: #f7f2e9;
     text-decoration: none;
     white-space: nowrap;
 }
@@ -130,7 +135,7 @@ cite {
 }
 
 .nav__link {
-    color: var(--color-ink-muted);
+    color: rgba(247, 242, 233, 0.82);
     text-decoration: none;
     font-size: 0.92rem;
     letter-spacing: 0.02em;
@@ -140,8 +145,8 @@ cite {
 
 .nav__link:hover,
 .nav__brand:hover {
-    color: var(--color-coast);
-    border-bottom-color: var(--color-coast);
+    color: #fff;
+    border-bottom-color: #c5d4d4;
 }
 
 .section {
@@ -153,18 +158,27 @@ cite {
 }
 
 .section--alt {
-    background: var(--color-paper-alt);
+    background: transparent;
 }
 
 .section--hero {
-    background:
-        linear-gradient(105deg, var(--color-paper) 0%, var(--color-paper) 52%, #c5d4d4 100%);
+    background: transparent;
     color: var(--color-ink);
 }
 
 .section--hero .section__lead {
     font-size: 1.15rem;
     max-width: 36rem;
+}
+
+.section--hero h1 {
+    /* Reserve room for the expanded tracking so hovering cannot reflow the title. */
+    max-width: calc(18ch + 1.5rem);
+    transition: letter-spacing 1s ease;
+}
+
+.section--hero h1:hover {
+    letter-spacing: 0.035em;
 }
 
 .section__inner {
@@ -220,7 +234,18 @@ cite {
     flex-direction: column;
     gap: 0.35rem;
     padding: 2rem 1.5rem 2.5rem;
-    background: var(--color-coast-deep);
+    background: transparent;
+    color: #e8e0d4;
+    position: relative;
+}
+
+.site-footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 1.5rem;
+    right: 1.5rem;
+    border-top: 1px solid rgba(28, 25, 21, 0.2);
     color: #e8e0d4;
 }
 
@@ -228,12 +253,12 @@ cite {
     margin: 0 auto;
     max-width: 42rem;
     width: 100%;
-    color: #e8e0d4;
+    color: var(--color-ink-muted);
     font-size: 0.95rem;
 }
 
 .site-footer strong {
-    color: #fff;
+    color: var(--color-ink);
 }
 
 @keyframes rise {
@@ -253,6 +278,7 @@ cite {
     }
 
     .section--hero .section__inner,
+    .section--hero h1,
     .nav__link {
         animation: none;
         transition: none;
